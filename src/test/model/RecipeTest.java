@@ -22,19 +22,21 @@ public class RecipeTest {
     @Test
     public void addDishTest() {
         recipe.addDish(Dish.AP);
-        recipe.viewRecipe();
+        recipe.getLastDish().equals(Dish.AP);
     }
 
     @Test
     public void deleteDishTest1() {
         recipe.addDish(Dish.BT);
         recipe.deleteDish(Dish.AP);
+        recipe.getLastDish().equals(Dish.BT);
     }
 
     @Test
     public void deleteDishTest2() {
         recipe.addDish(Dish.LFM);
         recipe.deleteDish(Dish.LFM);
+        assertTrue(recipe.isEmpty());
     }
 
     @Test

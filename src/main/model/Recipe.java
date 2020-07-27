@@ -25,14 +25,14 @@ public class Recipe {
     public void deleteDish(Dish dish) {
         if (myRecipe.contains(dish)) {
             myRecipe.remove(dish);
-            System.out.println(dish.getName() + " " + "has been successfully deleted from the recipe!");;
+            //System.out.println(dish.getName() + " " + "has been successfully deleted from the recipe!");;
         } else {
-            System.out.println("You don't have" + " " + dish.getName() + " " + "in the recipe.");
+            //System.out.println("You don't have" + " " + dish.getName() + " " + "in the recipe.");
         }
     }
 
     // EFFECTS: counts how many times is a dish added to the recipe.
-    public int countADish(String name) {
+    /*public int countADish(String name) {
         int i = 0;
 
         for (Dish dish : myRecipe) {
@@ -41,14 +41,14 @@ public class Recipe {
             }
         }
         return i;
-    }
+    }*/
 
     // EFFECTS: print out all the dishes in the recipe.
-    public void viewRecipe() {
-        System.out.println("Apple Pie x" + " " + countADish("Apple Pie"));
-        System.out.println("Beef Teriyaki x" + " " + countADish("Beef Teriyaki"));
-        System.out.println("Low Fat Milk x" + " " + countADish("Low Fat Milk"));
-    }
+/*    public void viewRecipe() {
+        //System.out.println("Apple Pie x" + " " + countADish("Apple Pie"));
+        //System.out.println("Beef Teriyaki x" + " " + countADish("Beef Teriyaki"));
+        //System.out.println("Low Fat Milk x" + " " + countADish("Low Fat Milk"));
+    }*/
 
     // EFFECTS: calculate the total calories contained in the recipe.
     public int calculateCalories() {
@@ -57,12 +57,17 @@ public class Recipe {
         for (Dish dish : myRecipe) {
             i += dish.getCalories();
         }
-        System.out.println("The recipe has " + i + " calories in total.");
+        //System.out.println("The recipe has " + i + " calories in total.");
         return i;
     }
 
     public boolean isEmpty() {
         return myRecipe.size() == 0;
+    }
+
+    // REQUIRES: the recipe has at least 1 dish.
+    public Dish getLastDish() {
+        return myRecipe.getLast();
     }
 
 }
