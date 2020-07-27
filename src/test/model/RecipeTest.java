@@ -2,7 +2,6 @@ package model;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.omg.CORBA.PUBLIC_MEMBER;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -46,5 +45,13 @@ public class RecipeTest {
         recipe.addDish(Dish.BT);
         recipe.addDish(Dish.LFM);
         assertEquals(1650*2+1300+600, recipe.calculateCalories());
+    }
+
+    @Test
+    public void countADishTest() {
+        recipe.addDish(Dish.AP);
+        recipe.addDish(Dish.AP);
+        recipe.addDish(Dish.BT);
+        assertEquals(2, recipe.countADish("Apple Pie"));
     }
 }

@@ -1,7 +1,5 @@
 package model;
 
-import com.sun.xml.internal.ws.api.model.wsdl.WSDLOutput;
-
 import java.util.LinkedList;
 
 // EFFECTS: A recipe is a list of dishes.
@@ -10,13 +8,13 @@ public class Recipe {
 
     // EFFECTS: creates a empty recipe.
     public Recipe() {
-        myRecipe = new LinkedList<Dish>();
+        myRecipe = new LinkedList<>();
     }
 
     // MODIFIES: this
     // EFFECTS: add a dish to the recipe.
-    public boolean addDish(Dish dish) {
-        return myRecipe.add(dish);
+    public void addDish(Dish dish) {
+        myRecipe.add(dish);
     }
 
     // REQUIRES: the recipe is not empty.
@@ -32,7 +30,7 @@ public class Recipe {
     }
 
     // EFFECTS: counts how many times is a dish added to the recipe.
-    /*public int countADish(String name) {
+    public int countADish(String name) {
         int i = 0;
 
         for (Dish dish : myRecipe) {
@@ -41,7 +39,7 @@ public class Recipe {
             }
         }
         return i;
-    }*/
+    }
 
     // EFFECTS: print out all the dishes in the recipe.
 /*    public void viewRecipe() {
