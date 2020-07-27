@@ -5,7 +5,7 @@
 This application is a game which animal-lovers will like.
 
 The ultimate goal of this game is helping an obese puppy to lose
-weight, and a player will be the owner. Your choices will determine 
+weight, and the player will be the owner. Your choices will determine 
 if the puppy can become healthy again.
 
 I got the inspiration from a mobile game called *Travel Frog*,
@@ -16,3 +16,10 @@ my application.
 **Feature Systems**
 - Action System
 - Simulation System
+
+## User Stories
+
+- As a user, I want to be able to add a dish to puppy's food recipe.
+- As a user, I want to view all dishes in puppy's food recipe.
+- As a user, I want to delete a dish from the recipe.
+- As a user, I want to move upwards/downwards/leftwards/rightwards while walking the puppy.
