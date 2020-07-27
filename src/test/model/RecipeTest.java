@@ -14,14 +14,16 @@ public class RecipeTest {
     }
 
     @Test
-    public void constructorTest() {
+    public void constructorTest1() {
         assertTrue(recipe.isEmpty());
     }
+
 
     @Test
     public void addDishTest() {
         recipe.addDish(Dish.AP);
         recipe.getLastDish().equals(Dish.AP);
+        assertFalse(recipe.isEmpty());
     }
 
     @Test
