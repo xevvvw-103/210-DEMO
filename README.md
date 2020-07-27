@@ -25,4 +25,3 @@ my application.
 - As a user, I want to delete a dish from the recipe.
 - As a user, I want to check the calories of a dish.
 - As a user, I want to see the total calories in the recipe.
-- As a user, I want to view all the items in my vault.
