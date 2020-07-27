@@ -1,6 +1,6 @@
-# Workout Puppy
+# Puppy on diet
 
-## A Combination of Simulation & Action Game
+## A Simulation Game
 
 This application is a game which animal-lovers will like.
 
@@ -14,12 +14,15 @@ features from *Travel Frog*, and add some unique elements into
 my application.
 
 **Feature Systems**
-- Action System
-- Simulation System
+- Feeding System
+- Collecting System
+- Playing System (Optional)
 
 ## User Stories
 
 - As a user, I want to be able to add a dish to puppy's food recipe.
 - As a user, I want to view all dishes in puppy's food recipe.
 - As a user, I want to delete a dish from the recipe.
-- As a user, I want to move upwards/downwards/leftwards/rightwards while walking the puppy.
+- As a user, I want to check the calories of a dish.
+- As a user, I want to see the total calories in the recipe.
+- As a user, I want to view all the items in my vault.
