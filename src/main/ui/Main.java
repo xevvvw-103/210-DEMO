@@ -4,6 +4,6 @@ import model.Recipe;
 
 public class Main {
     public static void main(String[] args) {
-        new consoleApp();
+        new ConsoleApp();
     }
 }
