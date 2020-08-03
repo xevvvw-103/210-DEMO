@@ -15,8 +15,7 @@ my application.
 
 **Feature Systems**
 - Feeding System
-- Collecting System
-- Playing System (Optional)
+- Workout System
 
 ## User Stories
 
@@ -25,3 +24,5 @@ my application.
 - As a user, I want to delete a dish from the recipe.
 - As a user, I want to check the calories of a dish.
 - As a user, I want to see the total calories in the recipe.
+- As a user, I want to be able to save recipe to file
+- As a user, I want to be able to optionally load my recipe from file when the program starts.

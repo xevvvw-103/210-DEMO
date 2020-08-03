@@ -3,6 +3,7 @@ package model;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import static model.Recipe.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class RecipeTest {
@@ -21,39 +22,46 @@ public class RecipeTest {
 
     @Test
     public void addDishTest() {
-        recipe.addDish(Dish.AP);
-        recipe.getLastDish().equals(Dish.AP);
+        recipe.addDish(AP);
+        assertEquals(AP, recipe.getLastDish());
         assertFalse(recipe.isEmpty());
     }
 
     @Test
     public void deleteDishTest1() {
-        recipe.addDish(Dish.BT);
-        recipe.deleteDish(Dish.AP);
-        recipe.getLastDish().equals(Dish.BT);
+        recipe.addDish(BT);
+        recipe.deleteDish(AP);
+        assertEquals(BT, recipe.getLastDish());
     }
 
     @Test
     public void deleteDishTest2() {
-        recipe.addDish(Dish.LFM);
-        recipe.deleteDish(Dish.LFM);
+        recipe.addDish(LFM);
+        recipe.deleteDish(LFM);
         assertTrue(recipe.isEmpty());
     }
 
     @Test
     public void calculateCaloriesTest() {
-        recipe.addDish(Dish.AP);
-        recipe.addDish(Dish.AP);
-        recipe.addDish(Dish.BT);
-        recipe.addDish(Dish.LFM);
+        recipe.addDish(AP);
+        recipe.addDish(AP);
+        recipe.addDish(BT);
+        recipe.addDish(LFM);
         assertEquals(1650*2+1300+600, recipe.calculateCalories());
     }
 
     @Test
     public void countADishTest() {
-        recipe.addDish(Dish.AP);
-        recipe.addDish(Dish.AP);
-        recipe.addDish(Dish.BT);
+        recipe.addDish(AP);
+        recipe.addDish(AP);
+        recipe.addDish(BT);
         assertEquals(2, recipe.countADish("Apple Pie"));
+    }
+
+    @Test
+    public void viewRecipeTest() {
+        recipe.addDish(AP);
+        recipe.addDish(BT);
+        recipe.viewRecipe();
     }
 }
