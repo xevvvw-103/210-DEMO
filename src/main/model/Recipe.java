@@ -1,18 +1,37 @@
 package model;
 
-import java.util.LinkedList;
+import persistence.Reader;
+import persistence.Saveable;
+
+import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
 
 // EFFECTS: A recipe is a list of dishes.
-public class Recipe {
+public class Recipe implements Saveable {
     public static final Dish AP = new Dish("Apple Pie", 1650);
     public static final Dish BT = new Dish("Beef Teriyaki", 1300);
     public static final Dish LFM = new Dish("Low Fat Milk", 600);
 
-    LinkedList<Dish> myRecipe;
+    List<Dish> myRecipe;
 
     // EFFECTS: creates a empty recipe.
     public Recipe() {
-        myRecipe = new LinkedList<>();
+        myRecipe = new ArrayList();
+    }
+
+    public Recipe(int a, int b, int c) {
+        myRecipe = new ArrayList();
+
+        for (int i = 0; i < a; i++) {
+            addDish(AP);
+        }
+        for (int i = 0; i < b; i++) {
+            addDish(BT);
+        }
+        for (int i = 0; i < c; i++) {
+            addDish(LFM);
+        }
     }
 
     // MODIFIES: this
@@ -27,7 +46,7 @@ public class Recipe {
     public void deleteDish(Dish dish) {
         if (myRecipe.contains(dish)) {
             myRecipe.remove(dish);
-            System.out.println(dish.getName() + " " + "has been successfully deleted from the recipe!");;
+            System.out.println(dish.getName() + " " + "has been successfully deleted from the recipe!");
         } else {
             System.out.println("You don't have" + " " + dish.getName() + " " + "in the recipe.");
         }
@@ -67,9 +86,18 @@ public class Recipe {
         return myRecipe.size() == 0;
     }
 
-    // REQUIRES: the recipe has at least 1 dish.
-    public Dish getLastDish() {
-        return myRecipe.getLast();
+    public int length() {
+        return myRecipe.size();
     }
 
+
+    @Override
+    public void save(PrintWriter printWriter) {
+        printWriter.print(countADish("Apple Pie"));
+        printWriter.print(Reader.DELIMITER);
+        printWriter.print(countADish("Beef Teriyaki"));
+        printWriter.print(Reader.DELIMITER);
+        printWriter.print(countADish("Low Fat Milk"));
+        printWriter.print(Reader.END);
+    }
 }

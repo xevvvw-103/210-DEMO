@@ -1,9 +1,13 @@
 package model;
 
 import exceptions.OverObeseException;
+import persistence.Reader;
+import persistence.Saveable;
+
+import java.io.PrintWriter;
 
 // Represents a golden retriever dog.
-public class GoldenRetriever {
+public class GoldenRetriever implements Saveable {
     public String name;
     public double weight; // in Kg
     private int caloriesConsumed;
@@ -46,5 +50,20 @@ public class GoldenRetriever {
         } else {
             return weight;
         }
+    }
+
+    // EFFECTS: returns a string representation of a golden retriever.
+    @Override
+    public String toString() {
+        String weightStr = String.format("%.2f", weight);  // get balance to 2 decimal places as a string
+        return "[ name = " + name + ", "
+                + "weight[Kg] = " + weightStr + "]";
+    }
+
+    @Override
+    public void save(PrintWriter printWriter) {
+        printWriter.print(name);
+        printWriter.print(Reader.DELIMITER);
+        printWriter.println(weight);
     }
 }

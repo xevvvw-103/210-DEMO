@@ -23,7 +23,7 @@ public class RecipeTest {
     @Test
     public void addDishTest() {
         recipe.addDish(AP);
-        assertEquals(AP, recipe.getLastDish());
+        assertEquals(1, recipe.length());
         assertFalse(recipe.isEmpty());
     }
 
@@ -31,7 +31,7 @@ public class RecipeTest {
     public void deleteDishTest1() {
         recipe.addDish(BT);
         recipe.deleteDish(AP);
-        assertEquals(BT, recipe.getLastDish());
+        assertEquals(1, recipe.length());
     }
 
     @Test
