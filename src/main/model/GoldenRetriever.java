@@ -8,8 +8,8 @@ import java.io.PrintWriter;
 
 // Represents a golden retriever dog.
 public class GoldenRetriever implements Savable {
-    protected String name;
-    protected double weight; // in Kg
+    private String name;
+    private double weight; // in Kg
     private int caloriesConsumed;
     private static final double C_RATE = 0.001;
 
@@ -21,10 +21,16 @@ public class GoldenRetriever implements Savable {
         caloriesConsumed = 0;
     }
 
-    public GoldenRetriever(String name, double weight) {
-        this.name = name;
-        this.weight = weight;
+    public GoldenRetriever() {
         caloriesConsumed = 0;
+    }
+
+    public String setName(String name) {
+        return this.name = name;
+    }
+
+    public double setWeight(double d) {
+        return this.weight = d;
     }
 
     public int takeInCalories(Recipe recipe) {

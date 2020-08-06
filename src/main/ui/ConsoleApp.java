@@ -2,19 +2,22 @@ package ui;
 
 import model.GoldenRetriever;
 import model.Recipe;
-import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.ParseException;
 import persistence.Reader;
+import persistence.Writer;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 // user interface application
 public class ConsoleApp {
     private static final String RECIPE_FILE = "./data/recipes.json";
-    private static final String DOG_FILE = " ./data/dog.json";
+    private static final String DOG_FILE = "./data/dog.json";
     private GoldenRetriever dog;
     private Scanner input;
     private Recipe recipe;
@@ -27,27 +30,12 @@ public class ConsoleApp {
     // MODIFIES: this
     // EFFECTS: process the user input
     private void runConsole() {
-        boolean keepGoing = true;
-        String command = null;
         input = new Scanner(System.in);
 
         System.out.println("Welcome to play this game.");
+        System.out.println("**************************");
 
         loadDoc();
-
-        while (keepGoing) {
-            displayMenu();
-            command = input.next();
-            command = command.toLowerCase();
-
-            if (command.equals("q")) {
-                keepGoing = false;
-            } else {
-                processCommand(command);
-            }
-        }
-
-        System.out.println("\nGoodbye!");
     }
 
     // MODIFIES: this
@@ -55,42 +43,67 @@ public class ConsoleApp {
     // otherwise initializes game.
     private void loadDoc() {
         try {
-            JSONArray recipes = (JSONArray) Reader.read(new File(RECIPE_FILE));
-            JSONObject lastRecipeObject = (JSONObject) recipes.get(recipes.size() - 1);
-            JSONObject lastRecipe = (JSONObject) lastRecipeObject.get("recipe");
-            recipe = new Recipe((int) lastRecipe.get("AP"),
-                    (int) lastRecipe.get("BT"),
-                    (int) lastRecipe.get("LFM"));
+//            JSONArray recipes = (JSONArray) Reader.read(new File(RECIPE_FILE));
+//            JSONObject lastRecipeObject = (JSONObject) recipes.get(recipes.size() - 1);
+//            JSONObject lastRecipe = (JSONObject) lastRecipeObject.get("recipe");
+//            recipe = new Recipe((int) lastRecipe.get("AP"),
+//                    (int) lastRecipe.get("BT"),
+//                    (int) lastRecipe.get("LFM"));
 
-            JSONObject dogObject = (JSONObject) Reader.read(new File(DOG_FILE));
-            dog = new GoldenRetriever((String) dogObject.get("name"),
-                    (double) dogObject.get("weight"));
+            Reader reader = new Reader();
+            JSONObject dogObject = (JSONObject) reader.read(new File(DOG_FILE));
+            dog = new GoldenRetriever();
+            dog.setName((String) dogObject.get("name"));
+            dog.setWeight((double) dogObject.get("weight"));
+            continuePlay();
         } catch (IOException | ParseException e) {
             init();
         }
     }
 
     private void init() {
-        System.out.println("Are you ready to help your little dog become healthy again?");
+        String command;
+        input = new Scanner(System.in);
+
+        System.out.println("\n\nAre you ready to help your little dog become healthy again?");
+        System.out.println("\nPress 'Y' to continue playing.");
+        System.out.println("Press 'Q' to quit.");
+
+        command = input.next();
+        command = command.toLowerCase();
+
+        if (command.equals("y")) {
+            setName();
+        } else if (command.equals("q")) {
+            System.out.println("\nGoodbye!");
+        }
     }
 
     // MODIFIES: this
     // EFFECTS: processes user command
     private void processCommand(String command) {
-        if (command.equals("c")) {
-            checkDogStatus();
-        } else if (command.equals("r")) {
-            diyRecipe();
-        } else if (command.equals("v")) {
-            viewRecipes();
-        } else if (command.equals("f")) {
-            feedDog();
-        } else if (command.equals("w")) {
-            exerciseDog();
-        } else if (command.equals("s")) {
-            saveGame();
-        } else {
-            System.out.println("Selection not valid...");
+        switch (command) {
+            case "c":
+                checkDogStatus();
+                break;
+            case "r":
+                diyRecipe();
+                break;
+            case "v":
+                viewRecipes();
+                break;
+            case "f":
+                feedDog();
+                break;
+            case "w":
+                exerciseDog();
+                break;
+            case "s":
+                saveGame();
+                break;
+            default:
+                System.out.println("Selection not valid...");
+                break;
         }
     }
 
@@ -116,6 +129,15 @@ public class ConsoleApp {
     }
 
     private void saveGame() {
+        try {
+            Writer writer = new Writer(new File(DOG_FILE));
+            writer.write(dog);
+            writer.close();
+            System.out.println("\n...");
+            System.out.println("Saved");
+        } catch (FileNotFoundException e) {
+            System.out.println("Unable to save game to " + DOG_FILE);
+        }
     }
 
     private void diyRecipe() {}
@@ -125,4 +147,39 @@ public class ConsoleApp {
     private void feedDog() {}
 
     private void exerciseDog() {}
+
+    private void setName() {
+        String command;
+        input = new Scanner(System.in);
+
+        System.out.println("\n\nPlease enter your dog's name.");
+        System.out.println("Press 'Enter' to proceed.");
+        List<String> name = new ArrayList<>();
+        command = input.next();
+
+        name.add(command);
+        System.out.println("\nThe dog's name is " + name);
+        dog = new GoldenRetriever(name.toString());
+        continuePlay();
+    }
+
+    private void continuePlay() {
+        boolean keepGoing = true;
+        String command;
+        input = new Scanner(System.in);
+
+        while (keepGoing) {
+            displayMenu();
+            command = input.next();
+            command = command.toLowerCase();
+
+            if (command.equals("q")) {
+                keepGoing = false;
+            } else {
+                processCommand(command);
+            }
+        }
+
+        System.out.println("\nGoodbye!");
+    }
 }
