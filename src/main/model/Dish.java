@@ -2,7 +2,7 @@ package model;
 
 // Represents a dish having a name and calories.
 public class Dish {
-    public String name;
+    private String name;
     private final int calories;
 
     // REQUIRES: Calories cannot be negative.

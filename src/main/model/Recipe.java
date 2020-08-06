@@ -1,14 +1,12 @@
 package model;
 
-import persistence.Reader;
-import persistence.Saveable;
+import org.json.simple.JSONObject;
 
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
 // EFFECTS: A recipe is a list of dishes.
-public class Recipe implements Saveable {
+public class Recipe {
     public static final Dish AP = new Dish("Apple Pie", 1650);
     public static final Dish BT = new Dish("Beef Teriyaki", 1300);
     public static final Dish LFM = new Dish("Low Fat Milk", 600);
@@ -17,7 +15,7 @@ public class Recipe implements Saveable {
 
     // EFFECTS: creates a empty recipe.
     public Recipe() {
-        myRecipe = new ArrayList();
+        myRecipe = new ArrayList<>();
     }
 
     public Recipe(int a, int b, int c) {
@@ -90,14 +88,15 @@ public class Recipe implements Saveable {
         return myRecipe.size();
     }
 
+    public JSONObject reToObject() {
+        JSONObject object = new JSONObject();
+        object.put("AP", countADish("Apple Pie"));
+        object.put("BT", countADish("Beef Teriyaki"));
+        object.put("LFM", countADish("Low Fat Milk"));
 
-    @Override
-    public void save(PrintWriter printWriter) {
-        printWriter.print(countADish("Apple Pie"));
-        printWriter.print(Reader.DELIMITER);
-        printWriter.print(countADish("Beef Teriyaki"));
-        printWriter.print(Reader.DELIMITER);
-        printWriter.print(countADish("Low Fat Milk"));
-        printWriter.print(Reader.END);
+        JSONObject object1 = new JSONObject();
+        object1.put("recipe", object);
+        return object1;
     }
+
 }

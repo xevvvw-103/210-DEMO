@@ -3,8 +3,8 @@ package persistence;
 import java.io.PrintWriter;
 
 // Represents data that can be saved to file
-public interface Saveable {
+public interface Savable {
     // MODIFIES: printWriter
-    // EFFECTS: writes the saveable to printWriter
-    void save(PrintWriter printWriter);
+    // EFFECTS: writes the savable to dogWri
+    void save(PrintWriter writer);
 }

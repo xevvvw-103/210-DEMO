@@ -1,15 +1,16 @@
 package model;
 
 import exceptions.OverObeseException;
-import persistence.Reader;
-import persistence.Saveable;
+import org.json.simple.JSONObject;
+import persistence.Savable;
 
 import java.io.PrintWriter;
 
+
 // Represents a golden retriever dog.
-public class GoldenRetriever implements Saveable {
-    public String name;
-    public double weight; // in Kg
+public class GoldenRetriever implements Savable {
+    protected String name;
+    protected double weight; // in Kg
     private int caloriesConsumed;
     private static final double C_RATE = 0.001;
 
@@ -45,25 +46,23 @@ public class GoldenRetriever implements Saveable {
     public double weightChange(int caloriesConsumed) throws OverObeseException {
         weight += caloriesConsumed * C_RATE;
         if (weight >= 45) {
-            throw new OverObeseException(name + " is overweight, should be sent to an animal clinic."
-                    + " GAME OVER.");
+            System.out.println(name + " is overweight, should be sent to an animal clinic.");
+            System.out.println("Game Over.");
+            throw new OverObeseException();
         } else {
             return weight;
         }
     }
 
-    // EFFECTS: returns a string representation of a golden retriever.
-    @Override
-    public String toString() {
-        String weightStr = String.format("%.2f", weight);  // get balance to 2 decimal places as a string
-        return "[ name = " + name + ", "
-                + "weight[Kg] = " + weightStr + "]";
-    }
-
     @Override
     public void save(PrintWriter printWriter) {
-        printWriter.print(name);
-        printWriter.print(Reader.DELIMITER);
-        printWriter.println(weight);
+        printWriter.println(grToObject().toJSONString());
+    }
+
+    public JSONObject grToObject() {
+        JSONObject object = new JSONObject();
+        object.put("name", name);
+        object.put("weight", weight);
+        return object;
     }
 }

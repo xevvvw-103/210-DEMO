@@ -1,10 +1,14 @@
 package ui;
 
+import model.GoldenRetriever;
+
 import java.util.Scanner;
 
 // user interface application
 public class ConsoleApp {
-    private static final String ACCOUNTS_FILE = "./data/recipes.txt";
+    private static final String RECIPE_FILE = "./data/recipes.json";
+    private static final String DOG_FILE = " ./data/dog.json";
+    private GoldenRetriever dog;
     private Scanner input;
 
     //EFFECTS: run the console application
@@ -47,7 +51,7 @@ public class ConsoleApp {
     // MODIFIES: this
     // EFFECTS: processes user command
     private void processCommand(String command) {
-        if (command.equals("s")) {
+        if (command.equals("c")) {
             checkDogStatus();
         } else if (command.equals("r")) {
             diyRecipe();
@@ -55,8 +59,10 @@ public class ConsoleApp {
             viewRecipes();
         } else if (command.equals("f")) {
             feedDog();
-        } else if (command.equals("e")) {
+        } else if (command.equals("w")) {
             exerciseDog();
+        } else if (command.equals("s")) {
+            saveGame();
         } else {
             System.out.println("Selection not valid...");
         }
@@ -65,16 +71,25 @@ public class ConsoleApp {
     // EFFECTS: displays menu of options to user
     private void displayMenu() {
         System.out.println("\nSelect from:");
-        System.out.println("\ts -> Dog Status");
+        System.out.println("\tc -> Check Dog Status");
         System.out.println("\tr -> DIY recipe");
         System.out.println("\tv -> View saved recipes");
         System.out.println("\tf -> Feed Dog");
-        System.out.println("\te -> Dog Exercise");
+        System.out.println("\tw -> Dog Workout");
+        System.out.println("\ts -> Save Game");
         System.out.println("\tq -> quit");
     }
 
     private void checkDogStatus() {
+        System.out.println("Your dog : " + dog.getName() + " is " + dog.getWeight() + " Kg now.");
+        if (dog.getWeight() >= 38) {
+            System.out.println("This little thing should go on diet !");
+        } else if (dog.getWeight() >= 30 && dog.getWeight() < 38) {
+            System.out.println("This little thing is in health !");
+        }
+    }
 
+    private void saveGame() {
     }
 
     private void diyRecipe() {}
