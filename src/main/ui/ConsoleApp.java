@@ -2,6 +2,7 @@ package ui;
 
 import model.GoldenRetriever;
 import model.Recipe;
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.ParseException;
 import persistence.Reader;
@@ -20,7 +21,6 @@ public class ConsoleApp {
     private static final String DOG_FILE = "./data/dog.json";
     private GoldenRetriever dog;
     private Scanner input;
-    private Recipe recipe;
 
     //EFFECTS: run the console application
     public ConsoleApp() {
@@ -76,6 +76,7 @@ public class ConsoleApp {
             setName();
         } else if (command.equals("q")) {
             System.out.println("\nGoodbye!");
+            System.exit(1);
         }
     }
 
@@ -140,9 +141,69 @@ public class ConsoleApp {
         }
     }
 
-    private void diyRecipe() {}
+    private void diyRecipe() {
+        input = new Scanner(System.in);
+        System.out.println("\n\nPlease enter the quantities you want. Press Enter to proceed.");
+        System.out.println("\n\nApple Pie");
+        int a = input.nextInt();
+        while (a < 0) {
+            System.out.println("Invalid number. Please enter again.");
+            a = input.nextInt();
+        }
+        System.out.println("\nBeef Teriyaki");
+        int b = input.nextInt();
+        while (b < 0) {
+            System.out.println("Invalid number. Please enter again.");
+            b = input.nextInt();
+        }
+        System.out.println("\nLow Fat Milk");
+        int c = input.nextInt();
+        while (c < 0) {
+            System.out.println("Invalid number. Please enter again.");
+            c = input.nextInt();
+        }
+        Recipe recipe = new Recipe(a, b, c);
+        recipe.calculateCalories();
+        doLoop();
+    }
 
-    private void viewRecipes() {}
+    private void doLoop() {
+        String command;
+        input = new Scanner(System.in);
+        System.out.println("\nDo you want to save this recipe ? ");
+        System.out.println("Yes[Y]/No[N]");
+        command = input.next();
+        command = command.toLowerCase();
+
+        if (command.equals("y")) {
+            saveRecipe();
+        } else if (command.equals("n")) {
+            continuePlay();
+        } else {
+            doLoop();
+        }
+    }
+
+    private void saveRecipe() {}
+
+    private void viewRecipes() {
+        Reader reader = new Reader();
+        try {
+            JSONArray recipesObjects = (JSONArray) reader.read(new File(RECIPE_FILE));
+            JSONObject lastRecipeObject = (JSONObject) recipesObjects.get(recipesObjects.size() - 1);
+            JSONObject lastRecipe = (JSONObject) lastRecipeObject.get("recipe");
+            System.out.println("Recipe: ");
+            System.out.println("Apple Pie * " + lastRecipe.get("AP"));
+            System.out.println("Beef Teriyaki * " + lastRecipe.get("BT"));
+            System.out.println("Low Fat Milk * " + lastRecipe.get("LFM"));
+            continuePlay();
+        } catch (ParseException | IOException e) {
+            System.out.println("\nNo saved recipes.");
+            System.out.println("********************");
+            continuePlay();
+        }
+
+    }
 
     private void feedDog() {}
 
