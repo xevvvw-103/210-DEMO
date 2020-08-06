@@ -3,9 +3,9 @@ package model;
 import exceptions.OverObeseException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import sun.awt.windows.WWindowPeer;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class GoldenRetrieverTest {
     GoldenRetriever gr;
@@ -50,11 +50,7 @@ public class GoldenRetrieverTest {
 
     @Test
     public void weightChangeTest2() {
-        try {
-            gr.weightChange(1000);
-        } catch (OverObeseException exception) {
-            fail();
-        }
+        gr.weightChange(1000);
     }
 
     @Test

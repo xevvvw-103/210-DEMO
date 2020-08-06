@@ -8,13 +8,13 @@ import java.io.FileReader;
 import java.io.IOException;
 
 public class Reader {
-    private JSONParser jsonParser;
+    private static JSONParser jsonParser;
 
     public Reader() {
         jsonParser = new JSONParser();
     }
 
-    public Object read(File file) throws IOException, ParseException {
+    public static Object read(File file) throws IOException, ParseException {
         FileReader fileReader = new FileReader(file);
         return jsonParser.parse(fileReader);
     }

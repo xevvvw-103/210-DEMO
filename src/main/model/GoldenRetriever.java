@@ -1,6 +1,5 @@
 package model;
 
-import exceptions.OverObeseException;
 import org.json.simple.JSONObject;
 import persistence.Savable;
 
@@ -19,6 +18,12 @@ public class GoldenRetriever implements Savable {
     public GoldenRetriever(String inputString) {
         name = inputString;
         weight = 40;
+        caloriesConsumed = 0;
+    }
+
+    public GoldenRetriever(String name, double weight) {
+        this.name = name;
+        this.weight = weight;
         caloriesConsumed = 0;
     }
 
@@ -43,12 +48,12 @@ public class GoldenRetriever implements Savable {
         return weight;
     }
 
-    public double weightChange(int caloriesConsumed) throws OverObeseException {
+    public double weightChange(int caloriesConsumed) {
         weight += caloriesConsumed * C_RATE;
         if (weight >= 45) {
             System.out.println(name + " is overweight, should be sent to an animal clinic.");
             System.out.println("Game Over.");
-            throw new OverObeseException();
+            return weight = 40;
         } else {
             return weight;
         }
@@ -59,10 +64,11 @@ public class GoldenRetriever implements Savable {
         printWriter.println(grToObject().toJSONString());
     }
 
+    @SuppressWarnings("unchecked")
     public JSONObject grToObject() {
         JSONObject object = new JSONObject();
-        object.put("name", name);
-        object.put("weight", weight);
+        object.put("name", this.name);
+        object.put("weight", this.weight);
         return object;
     }
 }
