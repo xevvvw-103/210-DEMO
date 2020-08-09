@@ -11,7 +11,7 @@ public class WalkDog extends Workout {
     }
 
     @Override
-    int getBurntCalories() {
+    public int getBurntCalories() {
         return burntCalories;
     }
 }

@@ -46,6 +46,11 @@ public class GoldenRetriever implements Savable {
         return caloriesConsumed += calorieschange;
     }
 
+    public int eatNoWorkout(Recipe recipe) {
+        int i = takeInCalories(recipe);
+        return caloriesConsumed += i;
+    }
+
     public String getName() {
         return name;
     }

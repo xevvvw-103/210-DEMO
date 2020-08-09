@@ -1,7 +1,6 @@
 package ui;
 
-import model.GoldenRetriever;
-import model.Recipe;
+import model.*;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.ParseException;
@@ -21,6 +20,8 @@ public class ConsoleApp {
     private static final String DOG_FILE = "./data/dog.json";
     private GoldenRetriever dog;
     private Scanner input;
+    private Recipe newRecipe = new Recipe(0,0,0);
+    private Workout workout;
 
     //EFFECTS: run the console application
     public ConsoleApp() {
@@ -43,13 +44,6 @@ public class ConsoleApp {
     // otherwise initializes game.
     private void loadDoc() {
         try {
-//            JSONArray recipes = (JSONArray) Reader.read(new File(RECIPE_FILE));
-//            JSONObject lastRecipeObject = (JSONObject) recipes.get(recipes.size() - 1);
-//            JSONObject lastRecipe = (JSONObject) lastRecipeObject.get("recipe");
-//            recipe = new Recipe((int) lastRecipe.get("AP"),
-//                    (int) lastRecipe.get("BT"),
-//                    (int) lastRecipe.get("LFM"));
-
             Reader reader = new Reader();
             JSONObject dogObject = (JSONObject) reader.read(new File(DOG_FILE));
             dog = new GoldenRetriever();
@@ -85,7 +79,7 @@ public class ConsoleApp {
     private void processCommand(String command) {
         switch (command) {
             case "c":
-                checkDogStatus();
+                specialCaseSolver();
                 break;
             case "r":
                 diyRecipe();
@@ -108,6 +102,21 @@ public class ConsoleApp {
         }
     }
 
+    private void specialCaseSolver() {
+        try {
+            checkDogStatus();
+        } catch (Exception e) {
+            int i = dog.eatNoWorkout(newRecipe);
+            dog.weightChange(i);
+            System.out.println("Your dog : " + dog.getName() + " is " + dog.getWeight() + " Kg now.");
+            if (dog.getWeight() >= 38) {
+                System.out.println("This little thing should go on diet !");
+            } else if (dog.getWeight() >= 30 && dog.getWeight() < 38) {
+                System.out.println("This little thing is in health !");
+            }
+        }
+    }
+
     // EFFECTS: displays menu of options to user
     private void displayMenu() {
         System.out.println("\nSelect from:");
@@ -120,7 +129,9 @@ public class ConsoleApp {
         System.out.println("\tq -> quit");
     }
 
-    private void checkDogStatus() {
+    private void checkDogStatus() throws Exception {
+        int i = dog.getCaloriesConsumed(newRecipe, workout);
+        dog.weightChange(i);
         System.out.println("Your dog : " + dog.getName() + " is " + dog.getWeight() + " Kg now.");
         if (dog.getWeight() >= 38) {
             System.out.println("This little thing should go on diet !");
@@ -162,8 +173,8 @@ public class ConsoleApp {
             System.out.println("Invalid number. Please enter again.");
             c = input.nextInt();
         }
-        Recipe recipe = new Recipe(a, b, c);
-        recipe.calculateCalories();
+        newRecipe = new Recipe(a, b, c);
+        System.out.println("\nThis recipe contains " + newRecipe.calculateCalories() + " calories.");
         doLoop();
     }
 
@@ -178,19 +189,34 @@ public class ConsoleApp {
         if (command.equals("y")) {
             saveRecipe();
         } else if (command.equals("n")) {
-            continuePlay();
+            System.out.println("Recipe is not saved.");
         } else {
             doLoop();
         }
     }
 
-    private void saveRecipe() {}
+    private void saveRecipe() {
+        Recipes jsonArray = new Recipes();
+        JSONObject jsonObject = newRecipe.reToObject();
+        jsonArray.addRecipe(jsonObject);
+
+        try {
+            Writer writer = new Writer(new File(RECIPE_FILE));
+            writer.write(jsonArray);
+            writer.close();
+            System.out.println("\n...");
+            System.out.println("Saved");
+        } catch (FileNotFoundException e) {
+            System.out.println("Unable to save game to " + DOG_FILE);
+        }
+    }
+
 
     private void viewRecipes() {
         Reader reader = new Reader();
         try {
-            JSONArray recipesObjects = (JSONArray) reader.read(new File(RECIPE_FILE));
-            JSONObject lastRecipeObject = (JSONObject) recipesObjects.get(recipesObjects.size() - 1);
+            JSONArray recipeObject = (JSONArray) reader.read(new File(RECIPE_FILE));
+            JSONObject lastRecipeObject = (JSONObject) recipeObject.get(0);
             JSONObject lastRecipe = (JSONObject) lastRecipeObject.get("recipe");
             System.out.println("Recipe: ");
             System.out.println("Apple Pie * " + lastRecipe.get("AP"));
@@ -205,9 +231,44 @@ public class ConsoleApp {
 
     }
 
-    private void feedDog() {}
+    private void feedDog() {
+        if (newRecipe.calculateCalories() == 0) {
+            System.out.println("Design a recipe for your dog first.");
+            diyRecipe();
+        } else {
+            dog.takeInCalories(newRecipe);
+            System.out.println("Your dog took in "
+                    + newRecipe.calculateCalories() + " calories this meal.");
+        }
+    }
 
-    private void exerciseDog() {}
+    private void exerciseDog() {
+        boolean keepGoing = true;
+        String command;
+        input = new Scanner(System.in);
+
+        System.out.println("\n\nDo you want to walk dog or play with dog ?");
+        while (keepGoing) {
+            System.out.println("\nPress 'W' for walk dog/ 'P' for play with dog.");
+            command = input.next();
+            command = command.toLowerCase();
+
+            if (command.equals("w")) {
+                workout = new WalkDog();
+                dog.burnCalories(workout);
+                System.out.println("\nAfter a long walk, your dog burnt "
+                        + workout.getBurntCalories() + " calories.");
+                keepGoing = false;
+            } else if (command.equals("p")) {
+                workout = new PlayWithDog();
+                dog.burnCalories(workout);
+                System.out.println("\nYou had great fun with your dog, dog burnt "
+                        + workout.getBurntCalories() + " calories.");
+                keepGoing = false;
+            }
+        }
+        continuePlay();
+    }
 
     private void setName() {
         String command;
