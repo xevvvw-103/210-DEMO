@@ -22,5 +22,6 @@ public class Recipes implements Savable {
     public boolean addRecipe(JSONObject object) {
         return recipes.add(object);
     }
+
 }
 

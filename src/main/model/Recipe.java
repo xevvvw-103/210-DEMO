@@ -76,7 +76,6 @@ public class Recipe {
         for (Dish dish : myRecipe) {
             i += dish.getCalories();
         }
-        System.out.println("The recipe has " + i + " calories in total.");
         return i;
     }
 

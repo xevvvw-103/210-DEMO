@@ -11,7 +11,7 @@ public class PlayWithDog extends Workout {
     }
 
     @Override
-    int getBurntCalories() {
+    public int getBurntCalories() {
         return burntCalories;
     }
 }
