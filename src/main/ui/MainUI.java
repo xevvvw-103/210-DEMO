@@ -29,11 +29,7 @@ public class MainUI extends JFrame {
     public MainUI() {
         loadDoc();
 
-        JFrame gui = new JFrame("Game Interface");
-        gui.setSize(WIDTH, HEIGHT);
-        gui.setResizable(false);
-        gui.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        gui.setLayout(new BorderLayout());
+        JFrame gui = getjFrame();
 
         ImageIcon img = new ImageIcon("./data/puppy-pt.jpg");
         JLabel background = new JLabel("", img, JLabel.CENTER);
@@ -41,20 +37,31 @@ public class MainUI extends JFrame {
 
         JPanel panel = new JPanel();
         panel.setLayout(new FlowLayout(FlowLayout.CENTER,50,10));
-        JButton button;
-        JButton button1;
-        JButton button2;
-        JButton button3;
-        JButton button4;
-        JButton button5;
-        JButton button6;
-        button = new JButton("Check Dog's Status");
-        button1 = new JButton("Feed Dog");
-        button2 = new JButton("Exercise");
-        button3 = new JButton("DIY Recipe");
-        button4 = new JButton("View Saved Recipe");
-        button5 = new JButton("Save Game");
-        button6 = new JButton("Quit");
+
+        JButton button = new JButton("Check Dog's Status");
+        JButton button1 = new JButton("Feed Dog");
+        JButton button2 = new JButton("Exercise");
+        JButton button3 = new JButton("DIY Recipe");
+        JButton button4 = new JButton("View Saved Recipe");
+        JButton button5 = new JButton("Save Game");
+        JButton button6 = new JButton("Quit");
+        addButton(panel, button, button1, button2, button3, button4, button5, button6);
+
+        gui.add(panel, BorderLayout.SOUTH);
+
+        gui.setVisible(true);
+
+        addAction(button, button1, button2, button3, button4, button5, button6);
+    }
+
+    private void addButton(JPanel panel,
+                           JButton button,
+                           JButton button1,
+                           JButton button2,
+                           JButton button3,
+                           JButton button4,
+                           JButton button5,
+                           JButton button6) {
         panel.add(button);
         panel.add(button1);
         panel.add(button2);
@@ -62,11 +69,15 @@ public class MainUI extends JFrame {
         panel.add(button4);
         panel.add(button5);
         panel.add(button6);
+    }
 
-        gui.add(panel, BorderLayout.SOUTH);
-
-        gui.setVisible(true);
-
+    private void addAction(JButton button,
+                           JButton button1,
+                           JButton button2,
+                           JButton button3,
+                           JButton button4,
+                           JButton button5,
+                           JButton button6) {
         button.addActionListener(e -> specialCaseSolver());
 
         button1.addActionListener(e -> feedDog());
@@ -80,6 +91,15 @@ public class MainUI extends JFrame {
         button5.addActionListener(e -> saveGame());
 
         button6.addActionListener(e -> System.exit(1));
+    }
+
+    private JFrame getjFrame() {
+        JFrame gui = new JFrame("Game Interface");
+        gui.setSize(WIDTH, HEIGHT);
+        gui.setResizable(false);
+        gui.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        gui.setLayout(new BorderLayout());
+        return gui;
     }
 
     private void loadDoc() {

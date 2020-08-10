@@ -16,13 +16,8 @@ public class GUI extends JFrame {
     private GoldenRetriever dog;
 
     // EFFECTS: initialize game UI.
-    @SuppressWarnings("checkstyle:MethodLength")
     public GUI() {
-        JFrame gui = new JFrame("Workout Puppy");
-        gui.setSize(WIDTH, HEIGHT);
-        gui.setResizable(false);
-        gui.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        gui.setLayout(new BorderLayout());
+        JFrame gui = getjFrame();
 
         ImageIcon img = new ImageIcon("./data/tobs.jpg");
         JLabel background = new JLabel("", img, JLabel.CENTER);
@@ -30,12 +25,10 @@ public class GUI extends JFrame {
 
         JPanel panel = new JPanel();
         panel.setLayout(new FlowLayout(FlowLayout.CENTER,50,10));
-        JButton button;
-        JButton button1;
-        JButton button2;
-        button = new JButton("New Game");
-        button1 = new JButton("Resume Game");
-        button2 = new JButton("Exist Game");
+
+        JButton button = new JButton("New Game");
+        JButton button1 = new JButton("Resume Game");
+        JButton button2 = new JButton("Exist Game");
         panel.add(button);
         panel.add(button1);
         panel.add(button2);
@@ -43,6 +36,10 @@ public class GUI extends JFrame {
 
         gui.setVisible(true);
 
+        addAction(gui, button, button1, button2);
+    }
+
+    private void addAction(JFrame gui, JButton button, JButton button1, JButton button2) {
         button2.addActionListener(e -> System.exit(1));
 
         button.addActionListener(e -> {
@@ -56,6 +53,15 @@ public class GUI extends JFrame {
             new MainUI();
             gui.dispose();
         });
+    }
+
+    private JFrame getjFrame() {
+        JFrame gui = new JFrame("Workout Puppy");
+        gui.setSize(WIDTH, HEIGHT);
+        gui.setResizable(false);
+        gui.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        gui.setLayout(new BorderLayout());
+        return gui;
     }
 
     private void init() {
