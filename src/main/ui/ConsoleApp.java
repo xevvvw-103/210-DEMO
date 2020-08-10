@@ -262,7 +262,7 @@ public class ConsoleApp {
             } else if (command.equals("p")) {
                 workout = new PlayWithDog();
                 dog.burnCalories(workout);
-                System.out.println("\nYou had great fun with your dog, dog burnt "
+                System.out.println("You had great fun with your dog, dog burnt "
                         + workout.getBurntCalories() + " calories.");
                 keepGoing = false;
             }
