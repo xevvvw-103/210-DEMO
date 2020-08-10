@@ -26,3 +26,12 @@ my application.
 - As a user, I want to see the total calories in the recipe.
 - As a user, I want to be able to save recipe to file
 - As a user, I want to be able to optionally load my recipe from file when the program starts.
+
+### Instructions for Grader
+- Click "New Game"  to start a new game.
+- In the main menu, click "Feed Dog". You can add any non-negative amounts of dishes into a recipe.
+- After entering amounts, click "Preview" to check the total calories contained in the recipe.
+- Click "Save Recipe" to save this recipe, you can check the saved recipe in the main menu by clicking "View Saved Recipe".
+- Start a game can see the background.
+- As stated above.
+- You can reload data by restarting game and clicking "Resume Game".

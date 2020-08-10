@@ -78,7 +78,7 @@ public class ConsoleApp {
     // EFFECTS: processes user command
     private void processCommand(String command) {
         switch (command) {
-            case "c":
+            case "input3":
                 specialCaseSolver();
                 break;
             case "r":
@@ -120,7 +120,7 @@ public class ConsoleApp {
     // EFFECTS: displays menu of options to user
     private void displayMenu() {
         System.out.println("\nSelect from:");
-        System.out.println("\tc -> Check Dog Status");
+        System.out.println("\tinput3 -> Check Dog Status");
         System.out.println("\tr -> DIY recipe");
         System.out.println("\tv -> View saved recipes");
         System.out.println("\tf -> Feed Dog");
@@ -233,7 +233,7 @@ public class ConsoleApp {
 
     private void feedDog() {
         if (newRecipe.calculateCalories() == 0) {
-            System.out.println("Design a recipe for your dog first.");
+            System.out.println("Design input1 recipe for your dog first.");
             diyRecipe();
         } else {
             dog.takeInCalories(newRecipe);
@@ -256,7 +256,7 @@ public class ConsoleApp {
             if (command.equals("w")) {
                 workout = new WalkDog();
                 dog.burnCalories(workout);
-                System.out.println("\nAfter a long walk, your dog burnt "
+                System.out.println("\nAfter input1 long walk, your dog burnt "
                         + workout.getBurntCalories() + " calories.");
                 keepGoing = false;
             } else if (command.equals("p")) {

@@ -20,12 +20,11 @@ public class MainUI extends JFrame {
     private static final int WIDTH = 1280;
     private static final int HEIGHT = 720;
 
-    private GoldenRetriever dog;
+    public GoldenRetriever dog;
     private Recipe newRecipe = new Recipe(0,0,0);
     private Workout workout;
     private Scanner input;
 
-    @SuppressWarnings("checkstyle:MethodLength")
     public MainUI() {
         loadDoc();
 
@@ -41,31 +40,28 @@ public class MainUI extends JFrame {
         JButton button = new JButton("Check Dog's Status");
         JButton button1 = new JButton("Feed Dog");
         JButton button2 = new JButton("Exercise");
-        JButton button3 = new JButton("DIY Recipe");
         JButton button4 = new JButton("View Saved Recipe");
         JButton button5 = new JButton("Save Game");
         JButton button6 = new JButton("Quit");
-        addButton(panel, button, button1, button2, button3, button4, button5, button6);
+        addButton(panel, button, button1, button2, button4, button5, button6);
 
         gui.add(panel, BorderLayout.SOUTH);
 
         gui.setVisible(true);
 
-        addAction(button, button1, button2, button3, button4, button5, button6);
+        addAction(button, button1, button2, button4, button5, button6);
     }
 
     private void addButton(JPanel panel,
                            JButton button,
                            JButton button1,
                            JButton button2,
-                           JButton button3,
                            JButton button4,
                            JButton button5,
                            JButton button6) {
         panel.add(button);
         panel.add(button1);
         panel.add(button2);
-        panel.add(button3);
         panel.add(button4);
         panel.add(button5);
         panel.add(button6);
@@ -74,7 +70,6 @@ public class MainUI extends JFrame {
     private void addAction(JButton button,
                            JButton button1,
                            JButton button2,
-                           JButton button3,
                            JButton button4,
                            JButton button5,
                            JButton button6) {
@@ -83,8 +78,6 @@ public class MainUI extends JFrame {
         button1.addActionListener(e -> feedDog());
 
         button2.addActionListener(e -> exerciseDog());
-
-        button3.addActionListener(e -> diyRecipe());
 
         button4.addActionListener(e -> viewRecipes());
 
@@ -181,14 +174,7 @@ public class MainUI extends JFrame {
     }
 
     private void feedDog() {
-        if (newRecipe.calculateCalories() == 0) {
-            System.out.println("Design a recipe for your dog first.");
-            diyRecipe();
-        } else {
-            dog.takeInCalories(newRecipe);
-            System.out.println("Your dog took in "
-                    + newRecipe.calculateCalories() + " calories this meal.");
-        }
+        new DIY();
     }
 
     private void exerciseDog() {
@@ -205,7 +191,7 @@ public class MainUI extends JFrame {
             if (command.equals("w")) {
                 workout = new WalkDog();
                 dog.burnCalories(workout);
-                System.out.println("\nAfter a long walk, your dog burnt "
+                System.out.println("\nAfter input1 long walk, your dog burnt "
                         + workout.getBurntCalories() + " calories.");
                 keepGoing = false;
             } else if (command.equals("p")) {
@@ -216,6 +202,10 @@ public class MainUI extends JFrame {
                 keepGoing = false;
             }
         }
+    }
+
+    private void diy() {
+        new DIY();
     }
 
     private void diyRecipe() {

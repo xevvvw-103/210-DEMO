@@ -1,12 +1,16 @@
 package ui;
 
 import model.GoldenRetriever;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.ParseException;
+import persistence.Reader;
 import persistence.Writer;
 
 import javax.swing.*;
 import java.awt.*;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 
 public class GUI extends JFrame {
     private static final String DOG_FILE = "./data/dog.json";
@@ -50,6 +54,7 @@ public class GUI extends JFrame {
         });
 
         button1.addActionListener(e -> {
+            loadDoc();
             new MainUI();
             gui.dispose();
         });
@@ -87,6 +92,19 @@ public class GUI extends JFrame {
             System.out.println("Saved");
         } catch (FileNotFoundException e) {
             System.out.println("Unable to save game to " + DOG_FILE);
+        }
+    }
+
+    private void loadDoc() {
+        try {
+            Reader reader = new Reader();
+            JSONObject dogObject = (JSONObject) reader.read(new File(DOG_FILE));
+            dog = new GoldenRetriever();
+            dog.setName((String) dogObject.get("name"));
+            dog.setWeight((double) dogObject.get("weight"));
+        } catch (IOException | ParseException e) {
+            new Prologue();
+            init();
         }
     }
 

@@ -82,4 +82,5 @@ public class GoldenRetriever implements Savable {
         object.put("weight", this.weight);
         return object;
     }
+
 }
