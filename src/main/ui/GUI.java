@@ -32,7 +32,7 @@ public class GUI extends JFrame {
 
         JButton button = new JButton("New Game");
         JButton button1 = new JButton("Resume Game");
-        JButton button2 = new JButton("Exist Game");
+        JButton button2 = new JButton("Exit Game");
         panel.add(button);
         panel.add(button1);
         panel.add(button2);
@@ -103,6 +103,10 @@ public class GUI extends JFrame {
             dog.setName((String) dogObject.get("name"));
             dog.setWeight((double) dogObject.get("weight"));
         } catch (IOException | ParseException e) {
+            JOptionPane.showMessageDialog(null,
+                    "No saved game.",
+                    "Warning",
+                    JOptionPane.WARNING_MESSAGE);
             new Prologue();
             init();
         }
