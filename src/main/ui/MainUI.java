@@ -1,29 +1,19 @@
 package ui;
 
-import model.*;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.ParseException;
 import persistence.Reader;
-import persistence.Writer;
 
 import javax.swing.*;
 import java.awt.*;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.Scanner;
 
-public class MainUI extends JFrame {
-    private static final String DOG_FILE = "./data/dog.json";
+public class MainUI extends ConsoleApp {
     private static final String RECIPE_FILE = "./data/recipes.json";
     private static final int WIDTH = 1280;
     private static final int HEIGHT = 720;
-
-    public GoldenRetriever dog;
-    private Recipe newRecipe = new Recipe(0,0,0);
-    private Workout workout;
-    private Scanner input;
 
     public MainUI() {
         loadDoc();
@@ -73,9 +63,22 @@ public class MainUI extends JFrame {
                            JButton button4,
                            JButton button5,
                            JButton button6) {
-        button.addActionListener(e -> specialCaseSolver());
+        button.addActionListener(e -> {
+            try {
+                specialCaseSolver();
+            } catch (Exception exception) {
+                String string = dog.getName() + " is seriously overweight, should be sent to "
+                        + "animal clinic. GAME OVER.";
+                UIManager.put("OptionPane.messageFont",
+                        new Font("Georgia", Font.PLAIN, 20));
+                int w = 600;
+                JOptionPane.showMessageDialog(null, String.format(string,w,w),
+                        "Recipe",JOptionPane.PLAIN_MESSAGE);
+                new GUI();
+            }
+        });
 
-        button1.addActionListener(e -> feedDog());
+        button1.addActionListener(e -> feedADog());
 
         button2.addActionListener(e -> exerciseDog());
 
@@ -95,7 +98,7 @@ public class MainUI extends JFrame {
         return gui;
     }
 
-    private void loadDoc() {
+    /*private void loadDoc() {
         try {
             Reader reader = new Reader();
             JSONObject dogObject = (JSONObject) reader.read(new File(DOG_FILE));
@@ -105,9 +108,9 @@ public class MainUI extends JFrame {
         } catch (IOException | ParseException e) {
             e.getStackTrace();
         }
-    }
+    }*/
 
-    private void checkDogStatus() throws Exception {
+/*    private void checkDogStatus() throws Exception {
         int i = dog.getCaloriesConsumed(newRecipe, workout);
         dog.weightChange(i);
         System.out.println("Your dog : " + dog.getName() + " is " + dog.getWeight() + " Kg now.");
@@ -116,24 +119,24 @@ public class MainUI extends JFrame {
         } else if (dog.getWeight() >= 30 && dog.getWeight() < 38) {
             System.out.println("This little thing is in health !");
         }
-    }
+    }*/
 
-    private void specialCaseSolver() {
+/*    private void specialCaseSolver() {
         try {
             checkDogStatus();
         } catch (Exception e) {
             int i = dog.eatNoWorkout(newRecipe);
             dog.weightChange(i);
-            System.out.println("Your dog : " + dog.getName() + " is " + dog.getWeight() + " Kg now.");
+            System.out.println("Your dog : " + dog.getName() + " is " + dog.getWeight() / 100 * 100 + " Kg now.");
             if (dog.getWeight() >= 38) {
                 System.out.println("This little thing should go on diet !");
             } else if (dog.getWeight() >= 30 && dog.getWeight() < 38) {
                 System.out.println("This little thing is in health !");
             }
         }
-    }
+    }*/
 
-    private void saveGame() {
+/*    private void saveGame() {
         try {
             Writer writer = new Writer(new File(DOG_FILE));
             writer.write(dog);
@@ -143,7 +146,7 @@ public class MainUI extends JFrame {
         } catch (FileNotFoundException e) {
             System.out.println("Unable to save game to " + DOG_FILE);
         }
-    }
+    }*/
 
     private void viewRecipes() {
         Reader reader = new Reader();
@@ -173,11 +176,11 @@ public class MainUI extends JFrame {
         }
     }
 
-    private void feedDog() {
+    private void feedADog() {
         new DIY();
     }
 
-    private void exerciseDog() {
+    /*private void exerciseDog() {
         boolean keepGoing = true;
         String command;
         input = new Scanner(System.in);
@@ -202,56 +205,9 @@ public class MainUI extends JFrame {
                 keepGoing = false;
             }
         }
-    }
+    }*/
 
-    private void diy() {
-        new DIY();
-    }
-
-    private void diyRecipe() {
-        input = new Scanner(System.in);
-        System.out.println("\n\nPlease enter the quantities you want. Press Enter to proceed.");
-        System.out.println("\n\nApple Pie");
-        int a = input.nextInt();
-        while (a < 0) {
-            System.out.println("Invalid number. Please enter again.");
-            a = input.nextInt();
-        }
-        System.out.println("\nBeef Teriyaki");
-        int b = input.nextInt();
-        while (b < 0) {
-            System.out.println("Invalid number. Please enter again.");
-            b = input.nextInt();
-        }
-        System.out.println("\nLow Fat Milk");
-        int c = input.nextInt();
-        while (c < 0) {
-            System.out.println("Invalid number. Please enter again.");
-            c = input.nextInt();
-        }
-        newRecipe = new Recipe(a, b, c);
-        System.out.println("\nThis recipe contains " + newRecipe.calculateCalories() + " calories.");
-        doLoop();
-    }
-
-    private void doLoop() {
-        String command;
-        input = new Scanner(System.in);
-        System.out.println("\nDo you want to save this recipe ? ");
-        System.out.println("Yes[Y]/No[N]");
-        command = input.next();
-        command = command.toLowerCase();
-
-        if (command.equals("y")) {
-            saveRecipe();
-        } else if (command.equals("n")) {
-            System.out.println("Recipe is not saved.");
-        } else {
-            doLoop();
-        }
-    }
-
-    private void saveRecipe() {
+/*    private void saveRecipe() {
         Recipes jsonArray = new Recipes();
         JSONObject jsonObject = newRecipe.reToObject();
         jsonArray.addRecipe(jsonObject);
@@ -265,5 +221,5 @@ public class MainUI extends JFrame {
         } catch (FileNotFoundException e) {
             System.out.println("Unable to save game to " + DOG_FILE);
         }
-    }
+    }*/
 }

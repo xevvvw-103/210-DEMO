@@ -10,7 +10,7 @@ import java.awt.*;
 import java.io.File;
 import java.io.FileNotFoundException;
 
-public class DIY extends MainUI {
+public class DIY extends ConsoleApp {
     private static final String RECIPE_FILE = "./data/recipes.json";
     private static final String DOG_FILE = "./data/dog.json";
     private Recipe newRecipe = new Recipe(0,0,0);
@@ -175,7 +175,7 @@ public class DIY extends MainUI {
         if (newRecipe.calculateCalories() == 0) {
             System.out.println("Design input1 recipe for your dog first.");
         } else {
-            dog.takeInCalories(newRecipe);
+            ConsoleApp.dog.takeInCalories(newRecipe);
             int i = dog.eatNoWorkout(newRecipe);
             dog.setWeight(dog.weightChange(i));
             System.out.println("Your dog took in "

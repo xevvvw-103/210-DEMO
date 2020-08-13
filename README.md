@@ -40,3 +40,7 @@ my application.
    - In UI-GUI class, load() method catches IOException and ParseException when Reader cannot load data from the appointed file.
 ###### Include a type hierarchy in your code other than the one that uses the Saveable interface introduced in Phase 2.
    - In model, PlayWithDog and WalkDog, two classes extend Workout class which is an abstract class.
+   
+### Phase 4: Task 3
+- Use super call in two subclasses PlayWithDog and WalkDog to reduce duplication;
+- When designing UI, there are too much coupling. Now I use type hierarchy to lower coupling. 

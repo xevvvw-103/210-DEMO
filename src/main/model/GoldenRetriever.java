@@ -61,13 +61,7 @@ public class GoldenRetriever implements Savable {
 
     public double weightChange(int caloriesConsumed) {
         weight += caloriesConsumed * C_RATE;
-        if (weight >= 45) {
-            System.out.println(name + " is overweight, should be sent to an animal clinic.");
-            System.out.println("Game Over.");
-            return weight = 40;
-        } else {
-            return weight;
-        }
+        return weight;
     }
 
     @Override
