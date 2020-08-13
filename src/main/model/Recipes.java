@@ -19,8 +19,8 @@ public class Recipes implements Savable {
         printWriter.flush();
     }
 
-    public boolean addRecipe(JSONObject object) {
-        return recipes.add(object);
+    public void addRecipe(JSONObject object) {
+        recipes.add(object);
     }
 
 }

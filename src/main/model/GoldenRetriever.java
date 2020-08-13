@@ -69,11 +69,10 @@ public class GoldenRetriever implements Savable {
         printWriter.println(grToObject().toJSONString());
     }
 
-    @SuppressWarnings("unchecked")
     public JSONObject grToObject() {
         JSONObject object = new JSONObject();
-        object.put("name", this.name);
-        object.put("weight", this.weight);
+        object.put("name", name);
+        object.put("weight", weight);
         return object;
     }
 

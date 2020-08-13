@@ -12,5 +12,5 @@ public abstract class Workout {
 
     public int getBurntCalories() {
         return burntCalories;
-    };
+    }
 }

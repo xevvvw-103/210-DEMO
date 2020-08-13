@@ -87,7 +87,6 @@ public class Recipe {
         return myRecipe.size();
     }
 
-    @SuppressWarnings("unchecked")
     public JSONObject reToObject() {
         JSONObject object = new JSONObject();
         object.put("AP", countADish("Apple Pie"));
