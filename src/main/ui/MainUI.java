@@ -98,56 +98,6 @@ public class MainUI extends ConsoleApp {
         return gui;
     }
 
-    /*private void loadDoc() {
-        try {
-            Reader reader = new Reader();
-            JSONObject dogObject = (JSONObject) reader.read(new File(DOG_FILE));
-            dog = new GoldenRetriever();
-            dog.setName((String) dogObject.get("name"));
-            dog.setWeight((double) dogObject.get("weight"));
-        } catch (IOException | ParseException e) {
-            e.getStackTrace();
-        }
-    }*/
-
-/*    private void checkDogStatus() throws Exception {
-        int i = dog.getCaloriesConsumed(newRecipe, workout);
-        dog.weightChange(i);
-        System.out.println("Your dog : " + dog.getName() + " is " + dog.getWeight() + " Kg now.");
-        if (dog.getWeight() >= 38) {
-            System.out.println("This little thing should go on diet !");
-        } else if (dog.getWeight() >= 30 && dog.getWeight() < 38) {
-            System.out.println("This little thing is in health !");
-        }
-    }*/
-
-/*    private void specialCaseSolver() {
-        try {
-            checkDogStatus();
-        } catch (Exception e) {
-            int i = dog.eatNoWorkout(newRecipe);
-            dog.weightChange(i);
-            System.out.println("Your dog : " + dog.getName() + " is " + dog.getWeight() / 100 * 100 + " Kg now.");
-            if (dog.getWeight() >= 38) {
-                System.out.println("This little thing should go on diet !");
-            } else if (dog.getWeight() >= 30 && dog.getWeight() < 38) {
-                System.out.println("This little thing is in health !");
-            }
-        }
-    }*/
-
-/*    private void saveGame() {
-        try {
-            Writer writer = new Writer(new File(DOG_FILE));
-            writer.write(dog);
-            writer.close();
-            System.out.println("\n...");
-            System.out.println("Saved");
-        } catch (FileNotFoundException e) {
-            System.out.println("Unable to save game to " + DOG_FILE);
-        }
-    }*/
-
     private void viewRecipes() {
         Reader reader = new Reader();
         try {
@@ -180,46 +130,4 @@ public class MainUI extends ConsoleApp {
         new DIY();
     }
 
-    /*private void exerciseDog() {
-        boolean keepGoing = true;
-        String command;
-        input = new Scanner(System.in);
-
-        System.out.println("\n\nDo you want to walk dog or play with dog ?");
-        while (keepGoing) {
-            System.out.println("\nPress 'W' for walk dog/ 'P' for play with dog.");
-            command = input.next();
-            command = command.toLowerCase();
-
-            if (command.equals("w")) {
-                workout = new WalkDog();
-                dog.burnCalories(workout);
-                System.out.println("\nAfter input1 long walk, your dog burnt "
-                        + workout.getBurntCalories() + " calories.");
-                keepGoing = false;
-            } else if (command.equals("p")) {
-                workout = new PlayWithDog();
-                dog.burnCalories(workout);
-                System.out.println("You had great fun with your dog, dog burnt "
-                        + workout.getBurntCalories() + " calories.");
-                keepGoing = false;
-            }
-        }
-    }*/
-
-/*    private void saveRecipe() {
-        Recipes jsonArray = new Recipes();
-        JSONObject jsonObject = newRecipe.reToObject();
-        jsonArray.addRecipe(jsonObject);
-
-        try {
-            Writer writer = new Writer(new File(RECIPE_FILE));
-            writer.write(jsonArray);
-            writer.close();
-            System.out.println("\n...");
-            System.out.println("Saved");
-        } catch (FileNotFoundException e) {
-            System.out.println("Unable to save game to " + DOG_FILE);
-        }
-    }*/
 }

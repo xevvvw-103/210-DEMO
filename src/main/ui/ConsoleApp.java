@@ -52,52 +52,6 @@ public class ConsoleApp {
         }
     }
 
-/*    private void init() {
-        String command;
-        input = new Scanner(System.in);
-
-        System.out.println("\n\nAre you ready to help your little dog become healthy again?");
-        System.out.println("\nPress 'Y' to continue playing.");
-        System.out.println("Press 'Q' to quit.");
-
-        command = input.next();
-        command = command.toLowerCase();
-
-        if (command.equals("y")) {
-            setName();
-        } else if (command.equals("q")) {
-            System.out.println("\nGoodbye!");
-            System.exit(1);
-        }
-    }*/
-
-    // MODIFIES: this
-    // EFFECTS: processes user command
-/*    private void processCommand(String command) {
-        switch (command) {
-            case "input3":
-                specialCaseSolver();
-                break;
-            case "r":
-                diyRecipe();
-                break;
-            case "v":
-                viewRecipes();
-                break;
-            case "f":
-                feedDog();
-                break;
-            case "w":
-                exerciseDog();
-                break;
-            case "s":
-                saveGame();
-                break;
-            default:
-                System.out.println("Selection not valid...");
-                break;
-        }
-    }*/
 
     void specialCaseSolver() throws Exception {
         try {
@@ -116,20 +70,6 @@ public class ConsoleApp {
             }
         }
     }
-
-    // EFFECTS: displays menu of options to user
-/*
-    private void displayMenu() {
-        System.out.println("\nSelect from:");
-        System.out.println("\tinput3 -> Check Dog Status");
-        System.out.println("\tr -> DIY recipe");
-        System.out.println("\tv -> View saved recipes");
-        System.out.println("\tf -> Feed Dog");
-        System.out.println("\tw -> Dog Workout");
-        System.out.println("\ts -> Save Game");
-        System.out.println("\tq -> quit");
-    }
-*/
 
     void checkDogStatus() throws Exception {
         int i = dog.getCaloriesConsumed(newRecipe, workout);
@@ -154,94 +94,6 @@ public class ConsoleApp {
             System.out.println("Unable to save game to " + DOG_FILE);
         }
     }
-
-/*    private void diyRecipe() {
-        input = new Scanner(System.in);
-        System.out.println("\n\nPlease enter the quantities you want. Press Enter to proceed.");
-        System.out.println("\n\nApple Pie");
-        int a = input.nextInt();
-        while (a < 0) {
-            System.out.println("Invalid number. Please enter again.");
-            a = input.nextInt();
-        }
-        System.out.println("\nBeef Teriyaki");
-        int b = input.nextInt();
-        while (b < 0) {
-            System.out.println("Invalid number. Please enter again.");
-            b = input.nextInt();
-        }
-        System.out.println("\nLow Fat Milk");
-        int c = input.nextInt();
-        while (c < 0) {
-            System.out.println("Invalid number. Please enter again.");
-            c = input.nextInt();
-        }
-        newRecipe = new Recipe(a, b, c);
-        System.out.println("\nThis recipe contains " + newRecipe.calculateCalories() + " calories.");
-        doLoop();
-    }*/
-
-/*    private void doLoop() {
-        String command;
-        input = new Scanner(System.in);
-        System.out.println("\nDo you want to save this recipe ? ");
-        System.out.println("Yes[Y]/No[N]");
-        command = input.next();
-        command = command.toLowerCase();
-
-        if (command.equals("y")) {
-            saveRecipe();
-        } else if (command.equals("n")) {
-            System.out.println("Recipe is not saved.");
-        } else {
-            doLoop();
-        }
-    }*/
-
-/*    void saveRecipe() {
-        Recipes jsonArray = new Recipes();
-        JSONObject jsonObject = newRecipe.reToObject();
-        jsonArray.addRecipe(jsonObject);
-
-        try {
-            Writer writer = new Writer(new File(RECIPE_FILE));
-            writer.write(jsonArray);
-            writer.close();
-            System.out.println("\n...");
-            System.out.println("Saved");
-        } catch (FileNotFoundException e) {
-            System.out.println("Unable to save game to " + DOG_FILE);
-        }
-    }*/
-
-
-/*    private void viewRecipes() {
-        Reader reader = new Reader();
-        try {
-            JSONArray recipeObject = (JSONArray) reader.read(new File(RECIPE_FILE));
-            JSONObject lastRecipeObject = (JSONObject) recipeObject.get(0);
-            JSONObject lastRecipe = (JSONObject) lastRecipeObject.get("recipe");
-            System.out.println("Recipe: ");
-            System.out.println("Apple Pie * " + lastRecipe.get("AP"));
-            System.out.println("Beef Teriyaki * " + lastRecipe.get("BT"));
-            System.out.println("Low Fat Milk * " + lastRecipe.get("LFM"));
-        } catch (ParseException | IOException e) {
-            System.out.println("\nNo saved recipes.");
-            System.out.println("********************");
-        }
-
-    }*/
-
-/*    void feedDog() {
-        if (newRecipe.calculateCalories() == 0) {
-            System.out.println("Design input1 recipe for your dog first.");
-            diyRecipe();
-        } else {
-            dog.takeInCalories(newRecipe);
-            System.out.println("Your dog took in "
-                    + newRecipe.calculateCalories() + " calories this meal.");
-        }
-    }*/
 
     void exerciseDog() {
         boolean keepGoing = true;
@@ -269,38 +121,4 @@ public class ConsoleApp {
             }
         }
     }
-
-/*    private void setName() {
-        String command;
-        input = new Scanner(System.in);
-
-        System.out.println("\n\nPlease enter your dog's name.");
-        System.out.println("Press 'Enter' to proceed.");
-        List<String> name = new ArrayList<>();
-        command = input.next();
-
-        name.add(command);
-        System.out.println("\nThe dog's name is " + name);
-        dog = new GoldenRetriever(name.toString());
-    }*/
-
-/*    private void continuePlay() {
-        boolean keepGoing = true;
-        String command;
-        input = new Scanner(System.in);
-
-        while (keepGoing) {
-            displayMenu();
-            command = input.next();
-            command = command.toLowerCase();
-
-            if (command.equals("q")) {
-                keepGoing = false;
-            } else {
-                processCommand(command);
-            }
-        }
-
-        System.out.println("\nGoodbye!");
-    }*/
 }

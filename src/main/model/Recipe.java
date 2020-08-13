@@ -19,7 +19,7 @@ public class Recipe {
     }
 
     public Recipe(int a, int b, int c) {
-        myRecipe = new ArrayList();
+        myRecipe = new ArrayList<>();
 
         for (int i = 0; i < a; i++) {
             addDish(AP);
@@ -87,6 +87,7 @@ public class Recipe {
         return myRecipe.size();
     }
 
+    @SuppressWarnings("unchecked")
     public JSONObject reToObject() {
         JSONObject object = new JSONObject();
         object.put("AP", countADish("Apple Pie"));

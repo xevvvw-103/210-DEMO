@@ -25,12 +25,12 @@ public class GoldenRetriever implements Savable {
         caloriesConsumed = 0;
     }
 
-    public String setName(String name) {
-        return this.name = name;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public double setWeight(double d) {
-        return this.weight = d;
+    public void setWeight(double d) {
+        this.weight = d;
     }
 
     public int takeInCalories(Recipe recipe) {
