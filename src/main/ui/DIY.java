@@ -23,7 +23,6 @@ public class DIY extends ConsoleApp {
     private JTextField input1 = new JTextField("0",10);
     private JTextField input2 = new JTextField("0",10);
     private JTextField input3 = new JTextField("0",10);
-    private JDialog ui = getjDialog();
     private int cal;
     private JLabel count = new JLabel();
 
@@ -31,6 +30,7 @@ public class DIY extends ConsoleApp {
         JPanel northPanel = new JPanel();
         northPanel.setLayout(new FlowLayout());
 
+        JDialog ui = getjDialog();
         setCenterPanel(ui);
 
         setNorthPanel(northPanel);
@@ -103,14 +103,6 @@ public class DIY extends ConsoleApp {
         northPanel.add(lfm);
         northPanel.add(input3);
         northPanel.add(Box.createHorizontalStrut(20));
-
-/*        int result = JOptionPane.showConfirmDialog(null, northPanel,
-                "Please Enter Amounts For Dishes", JOptionPane.OK_CANCEL_OPTION);
-        if (result == JOptionPane.OK_OPTION) {
-            amount1 = input1.getText();
-            amount2 = input2.getText();
-            amount3 = input3.getText();
-        }*/
     }
 
     private void setCenterPanel(JDialog ui) {
